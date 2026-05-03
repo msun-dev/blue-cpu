@@ -1,10 +1,14 @@
 #pragma once
 
-#define PULSE_AMT 8
-#define RAM_LEN 4096
-#define REGS_LEN 10
+#define PULSE_AMT    8
+#define RAM_LEN      4096
+#define REGS_LEN     10
 #define SWITCHES_LEN 3
 
+#define VAL(x)    (x & 0x7FFF)
+#define SIGN(x)   (x & 0x8000)
+#define INT16_MAX 0x7FFF
+#define INT16_MIN 0x8000
 #define NULL ((void*) 0)
 
 typedef unsigned char      uint8_t;

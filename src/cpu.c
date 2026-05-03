@@ -1,10 +1,5 @@
 #include "../include/cpu.h"
 
-#define VAL(x)    (x & 0x7FFF)
-#define SIGN(x)   (x & 0x8000) // 1 = negative
-#define INT16_MAX 0x7FFF
-#define INT16_MIN 0x8000
-
 // Secret functions
 static void memcopy(uint16_t* dest, const uint16_t* src, uint16_t size) {
 	// NB: uint16_t size for pointers. May fail if other types provided
