@@ -22,11 +22,11 @@ static Bool detectOverflow(int16_t a, int16_t b) {
 // Initialisation
 BlueCpu_t* initCpu(AllocFunc_t allocFunc, FreeFunc_t freeFunc) {
 	// NB: For now only tested agains malloc
-	BlueCpu_t* cpu = NULL;
+	BlueCpu_t* cpu = null;
 	cpu = (BlueCpu_t*)allocFunc(sizeof(BlueCpu_t));
 	if (!cpu) {
 		freeFunc(cpu);
-		return NULL;
+		return null;
 	}
 	
 	setClockpulse(cpu, 1);
