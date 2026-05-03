@@ -1,28 +1,17 @@
 #pragma once
 
+#include "./types.h"
+
 #define PULSE_AMT    8
 #define RAM_LEN      4096
 #define REGS_LEN     10
 #define SWITCHES_LEN 3
 
-#define VAL(x)    (x & 0x7FFF)
-#define SIGN(x)   (x & 0x8000)
-#define INT16_MAX 0x7FFF
-#define INT16_MIN 0x8000
-#define null ((void*) 0)
+#define VAL(x)  (x & 0x7FFF)
+#define SIGN(x) (x & 0x8000)
 
-typedef unsigned char      uint8_t;
-typedef unsigned short int uint16_t;
-typedef          short int  int16_t;
-typedef unsigned int       uint32_t;
-typedef unsigned long int  uint64_t;
 typedef void* (*AllocFunc_t)(uint64_t size); // user-provided alloc
 typedef void  (*FreeFunc_t)(void* ptr);      // user-provided free
-
-typedef enum Bool { // NB: Care with cond statements, can fail!
-	False = 0,
-	True  = !False,
-} Bool;
 
 typedef enum State {
 	ST_EXECUTE,
