@@ -6,6 +6,19 @@ Computer Architecture (1970) book.
 	Based on the code from
 https://gecko05.github.io/2022/10/22/first-emulator-part1.html.
 
+Source codestyle:
+	Every function, enum, type, macro and struct type prepended with
+the `blue_` prefix with the same case from the object it prepended to.
+My try to deal with names collisions. :7
+	Style by object:
+	- Macroses use `SNAKE_CASE`.
+	- Variable typedefs use `lowercase` and have `_type` postfix.
+	- Struct typedefs use _st
+	- Variables use `snake_case`.
+	- Enums are `Capitalised` and have postfix `_e`. Enum elements use `SNAKE_CASE`
+	with `BLUE_` and short enum name (ex: `Blue Operation` -> `BLUE_OP_*`).
+	- Functions use `camelCase`. Typedefs of function pointers are treated as types.
+
 	If you want to use this emulator yourself - take a look at the ./tests/test.c
 file: usage example is in the test_program function. Kinda works so you can use
 small programs on this. The only thing is DO NOT FORGET ABOUT OVERFLOWS. I did
