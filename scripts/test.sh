@@ -1,10 +1,10 @@
 test_app=$1
 if [ ! -f "./tests/$test_app" ]; then
-	echo "$test_app does not exists. Are you running this script from the root of the project? Running default test instead!"
+	echo "$test_app does not exists. Are you running this script from the root of the project? Trying to run the default test instead!"
 	test_app='tests.c'
 fi
 
-test_app_obj='${test_app::-2}.o'
+test_app_obj=${test_app::-2}.o
 
 flags='-std=c11 -Wall -Wpedantic -Wextra -ggdb -g3 -O0'
 
