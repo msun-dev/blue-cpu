@@ -1,4 +1,4 @@
-#include "../include/cpu.h"
+#include "cpu.h"
 
 // Secret functions
 static void memcopy(uint16_t* dest, const uint16_t* src, uint16_t size) {

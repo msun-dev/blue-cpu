@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./types.h"
+#include "types.h"
 
 #define PULSE_AMT    8
 #define RAM_LEN      4096

@@ -1,4 +1,4 @@
-#include "../include/cpu.h"
+#include "../src/cpu.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
