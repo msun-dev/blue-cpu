@@ -1,3 +1,5 @@
+#pragma once
+
 #define INT16_MAX 0x7FFF
 #define INT16_MIN 0x8000
 #define null ((void*) 0)
