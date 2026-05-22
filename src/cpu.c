@@ -8,15 +8,15 @@ static void memcopy(uint16_t* dest, const uint16_t* src, uint16_t size) {
 	}
 }
 
-static Bool detectOverflow(int16_t a, int16_t b) {
+static bool detectOverflow(int16_t a, int16_t b) {
 	if (SIGN(a) == SIGN(b)) {
 		if (a > 0 && b > BL_INT16_MAX - a) {
-			return True;
+			return true;
 		} else if (a < 0 && b < BL_INT16_MIN - a) {
-			return True;
+			return true;
 		}
 	}
-	return False;
+	return false;
 }
 
 // Initialisation
@@ -36,9 +36,9 @@ BlueCpu_t* initCpu(AllocFunc_t allocFunc, FreeFunc_t freeFunc) {
 	setState(cpu, ST_FETCH);
 	clearRam(cpu);
 	clearRegisters(cpu);
-	setSwitch(cpu, SW_POWER, False);
-	setSwitch(cpu, SW_READY, False);
-	setSwitch(cpu, SW_TRA, False);
+	setSwitch(cpu, SW_POWER, false);
+	setSwitch(cpu, SW_READY, false);
+	setSwitch(cpu, SW_TRA, false);
 
 	return cpu;
 }
@@ -101,20 +101,20 @@ uint8_t loadProgram(BlueCpu_t* cpu, uint16_t adr, uint16_t* program,
 }
 
 // Switches
-void setSwitch(BlueCpu_t* cpu, Switch sw, Bool value) {
+void setSwitch(BlueCpu_t* cpu, Switch sw, bool value) {
 	cpu->status_switches[sw] = value;
 }
 
-Bool getSwitch(BlueCpu_t* cpu, Switch sw) {
+bool getSwitch(BlueCpu_t* cpu, Switch sw) {
 	return cpu->status_switches[sw];
 }
 
 void enableCpu(BlueCpu_t* cpu) {
-	setSwitch(cpu, SW_POWER, True);
+	setSwitch(cpu, SW_POWER, true);
 }
 
 void disableCpu (BlueCpu_t* cpu) {
-	setSwitch(cpu, SW_POWER, False);
+	setSwitch(cpu, SW_POWER, false);
 }
 
 // Registers
@@ -140,7 +140,7 @@ void incRegister(BlueCpu_t* cpu, Register reg) {
 
 // Process
 uint8_t emulateCycle(BlueCpu_t* cpu) {
-	if (getSwitch(cpu, SW_POWER) == False) {
+	if (getSwitch(cpu, SW_POWER) == false) {
 		return 1;
 	}
 	
@@ -200,7 +200,7 @@ void execInstruction(BlueCpu_t* cpu, uint8_t tick) {
 	case OP_HLT: // 0x0
 		switch (tick) {
 		case 7:
-			setSwitch(cpu, SW_POWER, False);
+			setSwitch(cpu, SW_POWER, false);
 			break;
 		case 8:
 			setRegister(cpu, REG_MAR, getRegister(cpu, REG_PC));
@@ -239,7 +239,7 @@ void execInstruction(BlueCpu_t* cpu, uint8_t tick) {
 			case 7:;
 				if (detectOverflow((int16_t)getRegister(cpu, REG_Z),
 				                   (int16_t)getRegister(cpu, REG_MBR)) != 0) {
-					setSwitch(cpu, SW_POWER, False);
+					setSwitch(cpu, SW_POWER, false);
 					break;
 				}
 				int16_t r = (int16_t)getRegister(cpu, REG_Z) +
@@ -509,7 +509,7 @@ void execInstruction(BlueCpu_t* cpu, uint8_t tick) {
 				setRegister(cpu, REG_DSL, getRegister(cpu, REG_IR) & 0x001F);
 				break;
 			case 7:
-				setSwitch(cpu, SW_TRA, True);
+				setSwitch(cpu, SW_TRA, true);
 				break;
 			case 8:
 				setState(cpu, ST_EXECUTE);
@@ -519,12 +519,12 @@ void execInstruction(BlueCpu_t* cpu, uint8_t tick) {
 		else if (getState(cpu) == ST_EXECUTE) {
 			switch (tick) {
 			case 6:
-				if (getSwitch(cpu, SW_READY) == True) {
-					setSwitch(cpu, SW_TRA, False);
+				if (getSwitch(cpu, SW_READY) == true) {
+					setSwitch(cpu, SW_TRA, false);
 				}
 				break;
 			case 8:
-				if (getSwitch(cpu, SW_TRA) == False) {
+				if (getSwitch(cpu, SW_TRA) == false) {
 					setState(cpu, ST_FETCH);
 					setRegister(cpu, REG_MAR, getRegister(cpu, REG_PC));
 				}
@@ -541,7 +541,7 @@ void execInstruction(BlueCpu_t* cpu, uint8_t tick) {
 				setRegister(cpu, REG_DSL, getRegister(cpu, REG_IR) & 0x003F); // 5-0 REG_A
 				break;
 			case 7:
-				setSwitch(cpu, SW_TRA, True);
+				setSwitch(cpu, SW_TRA, true);
 				break;
 			case 8:
 				setState(cpu, ST_EXECUTE);
@@ -551,12 +551,12 @@ void execInstruction(BlueCpu_t* cpu, uint8_t tick) {
 		else if (getState(cpu) == ST_EXECUTE) {
 			switch (tick) {
 			case 6:
-				if (getSwitch(cpu, SW_READY) == True) {
-					setSwitch(cpu, SW_TRA, False);
+				if (getSwitch(cpu, SW_READY) == true) {
+					setSwitch(cpu, SW_TRA, false);
 				}
 				break;
 			case 8:
-				if (getSwitch(cpu, SW_TRA) == False) {
+				if (getSwitch(cpu, SW_TRA) == false) {
 					setState(cpu, ST_FETCH);
 					setRegister(cpu, REG_MAR, getRegister(cpu, REG_PC));
 				}

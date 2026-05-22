@@ -1,14 +1,20 @@
 #pragma once
 
-#include "types.h"
+#include <stdint.h>
+#include <stdbool.h>
 
+// MacroConstants
 #define PULSE_AMT    8
 #define RAM_LEN      4096
 #define REGS_LEN     10
 #define SWITCHES_LEN 3
+#define BL_INT16_MAX 0x7FFF
+#define BL_INT16_MIN 0x8000
 
+// Macroses
 #define VAL(x)  (x & 0x7FFF)
 #define SIGN(x) (x & 0x8000)
+#define null ((void*) 0)
 
 typedef void* (*AllocFunc_t)(uint64_t size); // user-provided alloc
 typedef void  (*FreeFunc_t)(void* ptr);      // user-provided free
@@ -62,7 +68,7 @@ typedef struct BlueCpu_t {
 
 	uint16_t ram[RAM_LEN];
 	uint16_t registers[REGS_LEN];
-	Bool     status_switches[SWITCHES_LEN];
+	bool     status_switches[SWITCHES_LEN];
 } BlueCpu_t;
 
 // Initialisation
@@ -82,8 +88,8 @@ void     loadRam     (BlueCpu_t* cpu, uint16_t* ram);
 uint8_t  loadProgram (BlueCpu_t* cpu, uint16_t adr,
                       uint16_t* program, uint16_t size);
 // Switches
-void setSwitch  (BlueCpu_t* cpu, Switch sw, Bool value);
-Bool getSwitch  (BlueCpu_t* cpu, Switch sw);
+void setSwitch  (BlueCpu_t* cpu, Switch sw, bool value);
+bool getSwitch  (BlueCpu_t* cpu, Switch sw);
 void enableCpu  (BlueCpu_t* cpu);
 void disableCpu (BlueCpu_t* cpu);
 // Registers
