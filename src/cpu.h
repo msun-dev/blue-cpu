@@ -16,7 +16,7 @@
 #define SIGN(x) (x & 0x8000)
 #define null ((void*) 0)
 
-typedef void* (*AllocFunc_t)(uint64_t size); // user-provided alloc
+typedef void* (*AllocFunc_t)(unsigned long size); // user-provided alloc
 typedef void  (*FreeFunc_t)(void* ptr);      // user-provided free
 
 typedef enum State {
