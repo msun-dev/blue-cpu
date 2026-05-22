@@ -10,9 +10,9 @@ static void memcopy(uint16_t* dest, const uint16_t* src, uint16_t size) {
 
 static Bool detectOverflow(int16_t a, int16_t b) {
 	if (SIGN(a) == SIGN(b)) {
-		if (a > 0 && b > INT16_MAX - a) {
+		if (a > 0 && b > BL_INT16_MAX - a) {
 			return True;
-		} else if (a < 0 && b < INT16_MIN - a) {
+		} else if (a < 0 && b < BL_INT16_MIN - a) {
 			return True;
 		}
 	}
