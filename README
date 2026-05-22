@@ -31,13 +31,14 @@ Things implemented:
 - CPU STRUCTure
 - CPU cycle
 - Every opcode besides INP and OUT
-- Does not uses standart library (am I a cool guy?)
+- Does not uses standart library (am I a cool guy?) (now it kinda does)
 - Most of the opcodes tested in the ./tests/tests.c
 
 Left to implement/do:
 - INP, OUT commands (reason below)
 - Devices interface to communicate with CPU
 - Some kind of way to interact with the CPU (explained in the note below)
+- Better return codes
 
 ?License: First you credit me: `Code taken from this guy -> github.com/msun-dev`,
 then you do whatever you want except for removing that credit line.
