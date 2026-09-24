@@ -27,6 +27,18 @@ a mistake in the test and thought that it was a bug. Wild stuff!
 	Don't forget to take a look at NB comments: `grep -rn "// NB: "`
 if something fails unexpectedly. You can find some info in them.
 
+Building on Windows:
+	Tested on Windows 11 using mingw32 (base and gcc-g++ in the installation manager).
+	Make sure that Make installed on your system. Make sure that you can run .ps scripts.
+	I did set *Unrestricted* for myself, don't know is that ok.
+	
+	In the root project directory:
+	```
+	./scripts/build-windows.ps1
+	```
+	... will produce a dll and an executable to test the source code.
+	Test results will be also displayed in the console.
+	
 Things implemented:
 - CPU STRUCTure
 - CPU cycle

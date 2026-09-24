@@ -1,0 +1,47 @@
+# Yonked from https://github.com/TransmissionZero/MinGW-DLL-Example/tree/master
+
+DLL_OBJS = obj/blue.o obj/dllres.o
+EXE_OBJS = obj/bluetest.o obj/exeres.o
+
+WARNS = -Wall -Wpedantic -Wextra
+
+# Names of tools to use when building
+CC = gcc
+RC = windres
+EXE = BlueTest.exe
+DLL = BlueLib.dll
+
+# Compiler flags
+EXE_CFLAGS = -std=c11  -ggdb -g3 -O0 ${WARNS} -Iinclude
+DLL_CFLAGS = ${EXE_CFLAGS} -D ADD_EXPORTS
+
+# Linker flags
+DLL_LDFLAGS = -shared -s -Wl,--subsystem,windows,--out-implib,lib/libbluelib.a
+EXE_LDFLAGS = -Llib -lbluelib -s -Wl,--subsystem,console
+
+.PHONY: all clean
+
+all: bin/${DLL} bin/${EXE}
+
+clean:
+	if exist bin\* del /q bin\*
+	if exist lib\* del /q lib\*
+	if exist obj\* del /q obj\*
+	
+bin lib obj:
+	@if not exist "$@" mkdir "$@"
+
+obj/blue.o: src/cpu.c src/cpu.h | obj
+	${CC} ${DLL_CFLAGS} -c "$<" -o "$@"
+	
+obj/bluetest.o: tests/tests.c src/cpu.h | obj
+	${CC} ${EXE_CFLAGS} -c "$<" -o "$@"
+
+obj/%.o: res/%.rc | obj
+	${RC} -Iinclude -Ires -i "$<" -o "$@"
+
+bin/${DLL}: ${DLL_OBJS} | bin lib
+	${CC} -o "$@" ${DLL_OBJS} ${DLL_LDFLAGS}
+
+bin/${EXE}: ${EXE_OBJS} | bin
+	${CC} -o "$@" ${EXE_OBJS} ${EXE_LDFLAGS}
