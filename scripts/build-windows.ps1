@@ -1,4 +1,7 @@
-$test_exe = .\bin\BlueTest.exe
+$test_exe = .\bin\BlueTest.exe;
 
-make -f .\scripts\makefiles\windows
-$test_exe
+make -f .\scripts\makefiles\windows 
+if ($?) {
+	$test_exe
+	echo "Compilation succeeded."
+}
