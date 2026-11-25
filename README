@@ -21,7 +21,7 @@ My try to deal with names collisions. :7
 
 	If you want to use this emulator yourself - take a look at the ./tests/test.c
 file: usage example is in the test_program function. Kinda works so you can use
-small programs on this. The only thing is DO NOT FORGET ABOUT OVERFLOWS. I did
+small programs on this. The only thing is DO NOT FORGET ABOUT OVERFLOWS (in the cpu assembly). I did
 a mistake in the test and thought that it was a bug. Wild stuff!
 
 	Don't forget to take a look at NB comments: `grep -rn "// NB: "`
